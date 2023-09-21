@@ -1,0 +1,32 @@
+def f(x):
+    return 4*x**4 + 4*x**3 - 6*x**2 - 9*x - 1
+
+def half_method(a, b, t):
+    while (b - a) / 2 > t:
+        c = (a + b) / 2
+        if f(c) == 0:
+            return c
+        elif f(c) * f(a) < 0:
+            b = c
+        else:
+            a = c
+    return (a + b) / 2
+
+def chord_method(a, b, tol):
+    x0 = a
+    x1 = b
+    while abs(x1 - x0) > t:
+        x2 = x1 - (f(x1) * (x1 - x0)) / (f(x1) - f(x0))
+        x0 = x1
+        x1 = x2
+    return x1
+
+a = 0
+b = 1
+g = 0.0001
+
+half_result = half_method(a, b, g)
+chord_result = chord_method(a, b, g)
+
+print(f"Метод половинного ділення: Корінь x = {half_result}")
+print(f"Метод хорд: Корінь x = {chord_result}")

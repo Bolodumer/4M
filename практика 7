@@ -1,0 +1,147 @@
+import numpy as np 
+
+import matplotlib.pyplot as plt 
+
+  
+
+x = np.array([0.45, 0.46, 0.47, 0.48, 0.49, 0.50, 0.51, 0.52, 0.53, 0.54, 0.55]) 
+
+y = np.array([20.1946, 19.6133, 18.9425, 18.1746, 17.3010, 16.3123, 15.1984, 13.9484, 12.5508, 10.9937, 9.2647]) 
+
+  
+
+# Перша інтерполяція 
+
+def first_interpolation(x, y, x0): 
+
+  n = len(x) 
+
+  f = np.zeros((n, n)) 
+
+  f[:, 0] = y 
+
+  
+
+  for j in range(1, n): 
+
+    for i in range(n - j): 
+
+      f[i, j] = (f[i+1, j-1] - f[i, j-1]) / (x[i+j] - x[i]) 
+
+  
+
+  res = 0 
+
+  for j in range(n): 
+
+    prod = f[0, j] 
+
+    for i in range(j): 
+
+      prod *= (x0 - x[i]) 
+
+    res += prod 
+
+  return res 
+
+  
+
+# Друга інтерполяція 
+
+def second_interpolation(x, y, x0): 
+
+  n = len(x) 
+
+  f = np.zeros((n, n)) 
+
+  f[:, 0] = y 
+
+  
+
+  for j in range(1, n): 
+
+    for i in range(n - j): 
+
+      f[i, j] = (f[i+1, j-1] - f[i, j-1]) / (x[i+j] - x[i]) 
+
+  
+
+  res = f[0, 0] 
+
+  for j in range(1, n): 
+
+    prod = f[0, j] 
+
+    for i in range(j): 
+
+      prod *= (x0 - x[i]) 
+
+    res += prod 
+
+  return res 
+
+  
+
+x1 = 0.455 
+
+x2 = 0.533 
+
+y1 = first_interpolation(x, y, x1) 
+
+y2 = second_interpolation(x, y, x2) 
+
+print(f"Точка({x1}) = {y1.round(4)}") 
+
+print(f"Точка({x2}) = {y2.round(4)}\n") 
+
+  
+
+x1 = 0.473 
+
+x2 = 0.551 
+
+y1 = first_interpolation(x, y, x1) 
+
+y2 = second_interpolation(x, y, x2) 
+
+print(f"Точка({x1}) = {y1.round(4)}") 
+
+print(f"Точка({x2}) = {y2.round(4)}\n") 
+
+  
+
+x1 = 0.461 
+
+x2 = 0.543 
+
+y1 = first_interpolation(x, y, x1) 
+
+y2 = second_interpolation(x, y, x2) 
+
+print(f"Точка({x1}) = {y1.round(4)}") 
+
+print(f"Точка({x2}) = {y2.round(4)}") 
+
+  
+
+xx = np.linspace(np.min(x), np.max(x), 200) 
+
+yy = np.zeros_like(xx) 
+
+for i in range(len(xx)): 
+
+yy[i] = second_interpolation(x, y, xx[i]) 
+
+plt.plot(x, y, 'o', color = 'blue', label='Точки') 
+
+plt.plot(xx, yy, color = 'red', label="Багаточлен Ньютона") 
+
+plt.title("Графік інтерполяційної функції Ньютона") 
+
+plt.xlabel("Вісь x") 
+
+plt.ylabel("Вісь y") 
+
+plt.legend() 
+
+plt.show() 

@@ -1,0 +1,75 @@
+import numpy as np 
+
+import matplotlib.pyplot as plt 
+
+  
+
+def equation(x): 
+
+    return 4*x**4 + 4*x**3 - 6*x**2 - 9*x - 1 
+
+def derivative(x): 
+
+    return 16*x**3 + 12*x**2 - 12*x - 9 
+
+def combined_method(equation, derivative, x0, tol=1e-6, max_iter=100): 
+
+    x = x0 
+
+    iterations = 0 
+
+  
+
+    while iterations < max_iter: 
+
+  
+
+        fx = equation(x) 
+
+        f_prime_x = derivative(x) 
+
+        if abs(f_prime_x) < tol: 
+
+            return None 
+
+         
+
+        x_newton = x - fx / f_prime_x 
+
+        x_bisection = x - fx / (2 * f_prime_x) 
+
+         
+
+        if x_bisection < min(x, x_newton) or x_bisection > max(x, x_newton): 
+
+            x_bisection = (x + x_newton) / 2 
+
+             
+
+        if abs(equation(x_newton)) < tol: 
+
+            return x_newton, iterations 
+
+        if abs(equation(x_bisection)) < tol: 
+
+            return x_bisection, iterations 
+
+        x = x_bisection if abs(equation(x_bisection)) < abs(equation(x_newton)) else x_newton 
+
+        iterations += 1 
+
+    print("Досягнута максимальна кількість ітерацій. Збіжність не досягнута.") 
+
+    return None 
+
+initial_guess = 0.0 
+
+solution, iterations = combined_method(equation, derivative, initial_guess) 
+
+  
+
+if solution is not None: 
+
+    print("Розв'язок рівняння:", solution) 
+
+    print("Кількість ітерацій:", iterations) 

@@ -1,0 +1,23 @@
+from scipy.optimize import newton 
+
+import matplotlib.pyplot as plt 
+
+import numpy as np 
+
+  
+
+def equation(x): 
+
+    return 4*x**4 + 4*x**3 - 6*x**2 - 9*x - 1 
+
+def derivative(x): 
+
+    return 16*x**3 + 12*x**2 - 12*x - 9 
+
+  
+
+initial_guess = 0.0 
+
+solution = newton(equation, initial_guess, fprime=derivative) 
+
+print("Розв'язок рівняння:", solution) 

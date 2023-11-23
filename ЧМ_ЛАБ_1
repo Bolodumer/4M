@@ -1,0 +1,47 @@
+import math 
+
+  
+
+x1 = 75   
+
+x2 = 51 / 11   
+
+x1_1 = 8.66  
+
+x2_2 = 4.64 
+
+  
+
+def f(x1, x1_1, x2, x2_2):  
+
+  
+
+    rel_error_x1 = abs(math.sqrt(x1) - x1_1) / abs(math.sqrt(x1))  
+
+    rel_error_x2 = abs(x2 - x2_2) / abs(x2)  
+
+  
+
+  
+
+  
+
+    if rel_error_x1 < rel_error_x2:  
+
+        print("Перша рівність точніше з відносною похибкою:", rel_error_x1)  
+
+  
+
+    elif rel_error_x2 < rel_error_x1:  
+
+        print("Друга рівність точніше з відносною похибкою:", rel_error_x2)  
+
+  
+
+    else:  
+
+        print("Обидві рівності мають однакову точність з відносною похибкою:", rel_error_x1)  
+
+  
+
+f(x1, x1_1, x2, x2_2) 
